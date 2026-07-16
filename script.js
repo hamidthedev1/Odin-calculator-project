@@ -32,3 +32,8 @@ function operate (operator, firstNumber, secondNumber) {
         return "Invalid Operator"
     }
 }
+// Varaibles to store 
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+let shouldResetDisplay = false;
