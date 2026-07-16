@@ -46,3 +46,14 @@ const operatorButtons = document.querySelectorAll(".operator");
 
 const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
+
+// dispaly the values
+numberButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (shouldResetDisplay) {
+        display.textContent = "";
+        shouldResetDisplay = false;
+        }
+        display.textContent +=  button.textContent
+    });
+});
