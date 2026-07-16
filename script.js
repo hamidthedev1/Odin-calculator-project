@@ -57,3 +57,15 @@ numberButtons.forEach((button) => {
         display.textContent +=  button.textContent
     });
 });
+
+operatorButtons.forEach((button) => {
+button.addEventListener("click", () => {
+    firstNumber = display.textContent;
+    operator = button.textContent;
+    shouldResetDisplay = true;
+
+    console.log(firstNumber);
+    console.log(operator);
+
+});
+});
