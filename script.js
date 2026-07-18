@@ -65,9 +65,12 @@ button.addEventListener("click", () => {
     firstNumber = display.textContent;
     operator = button.textContent;
     shouldResetDisplay = true;
-    } else 
-        
-        {
+    } 
+    else if (shouldResetDisplay) {
+      operator = button.textContent
+     }
+
+    else {
         secondNumber = display.textContent;
         let result = operate(operator, Number(firstNumber), Number(secondNumber))
         display.textContent = result;
@@ -96,4 +99,6 @@ clearButton.addEventListener('click', () => {
     operator = "";
     display.textContent = "0"
     shouldResetDisplay = false;
-})
+});
+
+
