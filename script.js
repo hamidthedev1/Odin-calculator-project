@@ -21,15 +21,15 @@ function operate (operator, firstNumber, secondNumber) {
     switch(operator) {
         case "+":
          return add(firstNumber, secondNumber);
-        case "-":
+        case "−":
          return subtract(firstNumber, secondNumber);
-        case "*":
+        case "×":
          return multiply(firstNumber, secondNumber);
-        case "/":
-         return divide(firstNumber, secondNumber);
-
+        case "÷":
+         if(secondNumber !==0) return divide(firstNumber, secondNumber);
+       return "Divide by 0 error"
     default:
-        return "Invalid Operator"
+        return "Operator not recognized"
     }
 }
 // Varaibles to store 
@@ -42,6 +42,7 @@ let shouldResetDisplay = false;
 const display = document.querySelector(".display");
 
 const numberButtons = document.querySelectorAll(".number");
+
 const operatorButtons = document.querySelectorAll(".operator");
 
 const equalsButton = document.querySelector(".equals");
@@ -60,12 +61,32 @@ numberButtons.forEach((button) => {
 
 operatorButtons.forEach((button) => {
 button.addEventListener("click", () => {
+    if(operator === ""){
     firstNumber = display.textContent;
     operator = button.textContent;
     shouldResetDisplay = true;
-
-    console.log(firstNumber);
-    console.log(operator);
+    } else 
+        
+        {
+        secondNumber = display.textContent;
+        let result = operate(operator, Number(firstNumber), Number(secondNumber))
+        display.textContent = result;
+        firstNumber = result;
+        operator = button.textContent;
+        shouldResetDisplay = true;
+    }
+      
 
 });
 });
+
+equalsButton.addEventListener("click", () => {
+    secondNumber = display.textContent; 
+
+    let result = operate(operator, Number(firstNumber), Number(secondNumber))
+
+     display.textContent = result;
+    firstNumber = result;
+    shouldResetDisplay = true;
+});
+
