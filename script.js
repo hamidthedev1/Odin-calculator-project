@@ -90,3 +90,10 @@ equalsButton.addEventListener("click", () => {
     shouldResetDisplay = true;
 });
 
+clearButton.addEventListener('click', () => {
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    display.textContent = "0"
+    shouldResetDisplay = false;
+})
