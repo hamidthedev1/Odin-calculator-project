@@ -27,9 +27,10 @@ function operate (operator, firstNumber, secondNumber) {
          return multiply(firstNumber, secondNumber);
         case "÷":
          if(secondNumber !==0) return divide(firstNumber, secondNumber);
-       return "Divide by 0 error"
+       return "Divide by 0 error";
+      
     default:
-        return "Operator not recognized"
+        return "Operator not recognized";
     }
 }
 // Varaibles to store 
@@ -72,9 +73,9 @@ button.addEventListener("click", () => {
 
     else {
         secondNumber = display.textContent;
-        let result = operate(operator, Number(firstNumber), Number(secondNumber))
-        display.textContent = result;
-        firstNumber = result;
+        let result = operate(operator, Number(firstNumber), Number(secondNumber));
+        display.textContent = roundResult(result);
+        firstNumber = roundResult(result);
         operator = button.textContent;
         shouldResetDisplay = true;
     }
@@ -84,12 +85,15 @@ button.addEventListener("click", () => {
 });
 
 equalsButton.addEventListener("click", () => {
+    if (operator === "") return;
+
+    if (shouldResetDisplay) return; 
+
     secondNumber = display.textContent; 
-
     let result = operate(operator, Number(firstNumber), Number(secondNumber))
-
-     display.textContent = result;
-    firstNumber = result;
+ 
+     display.textContent =  roundResult(result);
+    firstNumber = roundResult(result);
     shouldResetDisplay = true;
 });
 
@@ -101,4 +105,7 @@ clearButton.addEventListener('click', () => {
     shouldResetDisplay = false;
 });
 
-
+// helper function
+function roundResult(number) {
+    return Math.round(number * 100000) / 100000;
+}
