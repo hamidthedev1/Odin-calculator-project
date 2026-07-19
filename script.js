@@ -146,3 +146,15 @@ decimalButton.addEventListener('click', () => {
 display.textContent += ".";
 
 })
+
+// 1. If shouldResetDisplay is true, do nothing.
+// 2. Remove the last character from the display.
+// 3. If the display becomes empty, show "0".
+
+backspaceButton.addEventListener('click', () => {
+if(shouldResetDisplay) return;
+display.textContent = display.textContent.slice(0,-1)
+if(display.textContent === ""){
+    display.textContent = "0";
+}
+});
