@@ -38,6 +38,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 let shouldResetDisplay = false;
+let justCalculated = false;
 
 // select the dom elements
 const display = document.querySelector(".display");
@@ -48,6 +49,14 @@ const operatorButtons = document.querySelectorAll(".operator");
 
 const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
+const decimalButton = document.querySelector(".point");
+
+const backspaceButton = document.querySelector(".backspace");
+
+// helper function
+function roundResult(number) {
+    return Math.round(number * 100000) / 100000;
+}
 
 // dispaly the values
 numberButtons.forEach((button) => {
@@ -62,22 +71,31 @@ numberButtons.forEach((button) => {
 
 operatorButtons.forEach((button) => {
 button.addEventListener("click", () => {
+    if(display.textContent === "") return;
     if(operator === ""){
     firstNumber = display.textContent;
     operator = button.textContent;
     shouldResetDisplay = true;
     } 
+    else if(justCalculated) {
+        operator = button.textContent;
+        justCalculated = false;
+        shouldResetDisplay = true;
+        return;
+    }
     else if (shouldResetDisplay) {
       operator = button.textContent
      }
-
     else {
         secondNumber = display.textContent;
         let result = operate(operator, Number(firstNumber), Number(secondNumber));
-        display.textContent = roundResult(result);
-        firstNumber = roundResult(result);
+        const roundedResult = roundResult(result);
+
+        display.textContent = roundedResult;
+        firstNumber = roundedResult;
         operator = button.textContent;
         shouldResetDisplay = true;
+        justCalculated = false;
     }
       
 
@@ -92,9 +110,12 @@ equalsButton.addEventListener("click", () => {
     secondNumber = display.textContent; 
     let result = operate(operator, Number(firstNumber), Number(secondNumber))
  
-     display.textContent =  roundResult(result);
-    firstNumber = roundResult(result);
+     const roundedResult = roundResult(result);
+
+     display.textContent = roundedResult;
+     firstNumber = roundedResult;
     shouldResetDisplay = true;
+    justCalculated = true;
 });
 
 clearButton.addEventListener('click', () => {
@@ -103,9 +124,25 @@ clearButton.addEventListener('click', () => {
     operator = "";
     display.textContent = "0"
     shouldResetDisplay = false;
+    justCalculated = false;
 });
 
-// helper function
-function roundResult(number) {
-    return Math.round(number * 100000) / 100000;
+//1. If we're starting a new number (shouldResetDisplay is true), clear the display.
+//2. If the current display already contains ".", do nothing.
+//3. If the display is empty, show "0.".
+//4. Otherwise, append "." to the display.
+decimalButton.addEventListener('click', () => {
+  if(shouldResetDisplay){
+    display.textContent = "";
+    shouldResetDisplay = false;
+  }
+  if (display.textContent.includes(".")) return;
+
+  if (display.textContent === "") {
+    display.textContent = "0.";
+    return;
 }
+
+display.textContent += ".";
+
+})
