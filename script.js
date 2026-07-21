@@ -58,57 +58,72 @@ function roundResult(number) {
     return Math.round(number * 100000) / 100000;
 }
 
-// dispaly the values
-numberButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        if (shouldResetDisplay) {
+// number logic function
+function inputNumber(number) {
+    if (shouldResetDisplay) {
         display.textContent = "";
         shouldResetDisplay = false;
         }
-        display.textContent +=  button.textContent
+        display.textContent += number
+}
+
+numberButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+       inputNumber(button.textContent)
     });
 });
+//handle operators logic
 
-operatorButtons.forEach((button) => {
-button.addEventListener("click", () => {
+function handleOperator(nextOperator) {
     if(display.textContent === "") return;
+
     if(operator === ""){
     firstNumber = display.textContent;
-    operator = button.textContent;
+    operator = nextOperator;
     shouldResetDisplay = true;
     } 
+
     else if(justCalculated) {
-        operator = button.textContent;
+        operator = nextOperator;
         justCalculated = false;
         shouldResetDisplay = true;
         return;
     }
+
     else if (shouldResetDisplay) {
-      operator = button.textContent
+      operator = nextOperator;
      }
+
     else {
         secondNumber = display.textContent;
-        let result = operate(operator, Number(firstNumber), Number(secondNumber));
+        const result = operate(operator, Number(firstNumber), Number(secondNumber));
         const roundedResult = roundResult(result);
 
         display.textContent = roundedResult;
         firstNumber = roundedResult;
-        operator = button.textContent;
+        operator = nextOperator;
         shouldResetDisplay = true;
         justCalculated = false;
     }
-      
+}
+
+
+operatorButtons.forEach((button) => {
+button.addEventListener("click", () => {
+
+handleOperator(button.textContent);
 
 });
 });
 
-equalsButton.addEventListener("click", () => {
-    if (operator === "") return;
+// Handle Equal button
+function calculate() {
+   if (operator === "") return;
 
     if (shouldResetDisplay) return; 
 
     secondNumber = display.textContent; 
-    let result = operate(operator, Number(firstNumber), Number(secondNumber))
+    const result = operate(operator, Number(firstNumber), Number(secondNumber))
  
      const roundedResult = roundResult(result);
 
@@ -116,45 +131,48 @@ equalsButton.addEventListener("click", () => {
      firstNumber = roundedResult;
     shouldResetDisplay = true;
     justCalculated = true;
-});
+    
+ }
 
-clearButton.addEventListener('click', () => {
-    firstNumber = "";
+equalsButton.addEventListener("click", calculate);
+
+//handle clear button
+function clearCalculator() { 
+  firstNumber = "";
     secondNumber = "";
     operator = "";
     display.textContent = "0"
     shouldResetDisplay = false;
     justCalculated = false;
-});
+ }
+clearButton.addEventListener('click',clearCalculator);
 
-//1. If we're starting a new number (shouldResetDisplay is true), clear the display.
-//2. If the current display already contains ".", do nothing.
-//3. If the display is empty, show "0.".
-//4. Otherwise, append "." to the display.
-decimalButton.addEventListener('click', () => {
-  if(shouldResetDisplay){
-    display.textContent = "";
-    shouldResetDisplay = false;
-  }
-  if (display.textContent.includes(".")) return;
+//handle decimal point
 
-  if (display.textContent === "") {
-    display.textContent = "0.";
-    return;
+function inputDecimal() { 
+      if(shouldResetDisplay){
+       display.textContent = "";
+       shouldResetDisplay = false;
+     }
+        if (display.textContent.includes(".")) return;
+
+        if (display.textContent === "") {
+            display.textContent = "0.";
+            return;
+        }
+
+        display.textContent += ".";
 }
 
-display.textContent += ".";
+decimalButton.addEventListener('click', inputDecimal)
 
-})
-
-// 1. If shouldResetDisplay is true, do nothing.
-// 2. Remove the last character from the display.
-// 3. If the display becomes empty, show "0".
-
-backspaceButton.addEventListener('click', () => {
-if(shouldResetDisplay) return;
+//handle delete (backspace) button
+function deleteLastDigit() { 
+    if(shouldResetDisplay) return;
 display.textContent = display.textContent.slice(0,-1)
 if(display.textContent === ""){
     display.textContent = "0";
 }
-});
+ }
+backspaceButton.addEventListener('click', deleteLastDigit);
+
