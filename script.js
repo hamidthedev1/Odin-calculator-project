@@ -176,3 +176,30 @@ if(display.textContent === ""){
  }
 backspaceButton.addEventListener('click', deleteLastDigit);
 
+document.addEventListener("keydown", (event) => {
+   
+  if(event.key >= "0" && event.key <="9"){
+    inputNumber(event.key);
+  }
+  else if (event.key === "+") {
+    handleOperator("+");
+}
+else if (event.key === "-") {
+    handleOperator("−");
+}
+else if(event.key === "*"){
+  handleOperator("×")
+}
+else if(event.key === "/"){
+    handleOperator("÷")
+}
+else if (event.key === "Enter" || event.key === "="){
+    calculate()
+}
+else if(event.key === "Backspace"){
+    deleteLastDigit()
+}
+ else if(event.key === "Escape"){
+    clearCalculator()
+ }
+});
