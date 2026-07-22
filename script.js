@@ -177,6 +177,7 @@ if(display.textContent === ""){
 backspaceButton.addEventListener('click', deleteLastDigit);
 
 function handleKeyboard(event) {
+   
 if(event.key >= "0" && event.key <="9"){
     inputNumber(event.key);
   }
@@ -192,9 +193,15 @@ else if(event.key === "*"){
 else if(event.key === "/"){
     handleOperator("÷");
 }
-else if (event.key === "Enter" || event.key === "="){
+else if (event.key === "Enter"){
     calculate();
 }
+else if (event.key === "="){
+    calculate();
+}
+// else if (event.key === "Enter" || event.key === "="){
+//     calculate();
+// }
 else if(event.key === "Backspace"){
     deleteLastDigit();
 }
