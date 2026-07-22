@@ -192,6 +192,19 @@ function convertPercentage() {
 
 percentButton.addEventListener("click", convertPercentage);
 
+function toggleSign() {
+
+    if(display.textContent === "") return;
+
+    let value = Number(display.textContent);
+
+    value = value * -1;
+
+    display.textContent = value;
+}
+
+signButton.addEventListener("click", toggleSign)
+
 function handleKeyboard(event) {
    
 if(event.key >= "0" && event.key <="9"){
