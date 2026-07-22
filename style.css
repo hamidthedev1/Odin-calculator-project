@@ -9,6 +9,7 @@ body {
      min-height:100vh;
 
     display:flex;
+    flex-direction: column;
     justify-content:center;
     align-items:center;
 }
@@ -75,4 +76,16 @@ button:active {
 
 .clear {
     background-color: #ef4444;
+}
+
+.backspace,
+.percent,
+.sign,
+.point {
+    background-color: #6b7280;
+    color: white;
+}
+
+footer {
+    margin-top: 10px;
 }

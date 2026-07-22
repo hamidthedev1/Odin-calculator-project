@@ -164,7 +164,7 @@ function inputDecimal() {
         display.textContent += ".";
 }
 
-decimalButton.addEventListener('click', inputDecimal)
+decimalButton.addEventListener('click', inputDecimal);
 
 //handle delete (backspace) button
 function deleteLastDigit() { 
@@ -176,9 +176,8 @@ if(display.textContent === ""){
  }
 backspaceButton.addEventListener('click', deleteLastDigit);
 
-document.addEventListener("keydown", (event) => {
-   
-  if(event.key >= "0" && event.key <="9"){
+function handleKeyboard(event) {
+if(event.key >= "0" && event.key <="9"){
     inputNumber(event.key);
   }
   else if (event.key === "+") {
@@ -188,18 +187,20 @@ else if (event.key === "-") {
     handleOperator("−");
 }
 else if(event.key === "*"){
-  handleOperator("×")
+  handleOperator("×");
 }
 else if(event.key === "/"){
-    handleOperator("÷")
+    handleOperator("÷");
 }
 else if (event.key === "Enter" || event.key === "="){
-    calculate()
+    calculate();
 }
 else if(event.key === "Backspace"){
-    deleteLastDigit()
+    deleteLastDigit();
 }
  else if(event.key === "Escape"){
-    clearCalculator()
+    clearCalculator();
  }
-});
+}
+
+document.addEventListener("keydown", handleKeyboard);
