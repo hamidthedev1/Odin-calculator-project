@@ -52,6 +52,8 @@ const clearButton = document.querySelector(".clear");
 const decimalButton = document.querySelector(".point");
 
 const backspaceButton = document.querySelector(".backspace");
+const percentButton = document.querySelector(".percent");
+const signButton = document.querySelector(".sign");
 
 // helper function
 function roundResult(number) {
@@ -175,6 +177,20 @@ if(display.textContent === ""){
 }
  }
 backspaceButton.addEventListener('click', deleteLastDigit);
+
+// handle percentage 
+function convertPercentage() {
+
+    if (display.textContent === "") return;
+
+    let value = Number(display.textContent);
+
+    value = value / 100;
+
+    display.textContent = value;
+}
+
+percentButton.addEventListener("click", convertPercentage);
 
 function handleKeyboard(event) {
    
