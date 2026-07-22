@@ -185,7 +185,11 @@ function convertPercentage() {
 
     let value = Number(display.textContent);
 
-    value = value / 100;
+    if (operator !== "" && firstNumber !== "") {
+        value = Number(firstNumber) * value / 100;
+    } else {
+        value = value / 100;
+    }
 
     display.textContent = value;
 }
@@ -198,7 +202,7 @@ function toggleSign() {
 
     let value = Number(display.textContent);
 
-    value = value * -1;
+    value *= -1;
 
     display.textContent = value;
 }
